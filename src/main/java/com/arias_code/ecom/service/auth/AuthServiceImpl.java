@@ -22,7 +22,7 @@ public class AuthServiceImpl implements AuthService{
         user.setName(signupDTO.getName());
         user.setEmail(signupDTO.getEmail());
         user.setPassword(new BCryptPasswordEncoder().encode(signupDTO.getPassword()));
-        user.setRole(UserRole.Customer);
+        user.setRole(UserRole.CUSTOMER);
 
         User createdUser = userRepository.save(user);
         UserDto userDto = new UserDto();
@@ -38,16 +38,15 @@ public class AuthServiceImpl implements AuthService{
 
     @PostConstruct
     public void createAdminAccount(){
-        User adminAccount = userRepository.findByRole(UserRole.Admin);
+        User adminAccount = userRepository.findByRole(UserRole.ADMIN);
 
         if (null == adminAccount){
             User user = new User();
             user.setName("admin");
             user.setEmail("admin@admin.com");
-            user.setRole(UserRole.Admin);
+            user.setRole(UserRole.ADMIN);
             user.setPassword(new BCryptPasswordEncoder().encode("admin"));
             userRepository.save(user);
-
         }
     }
 }

@@ -74,6 +74,11 @@ public class AuthController {
                             .put("role", userOptional.get().getRole())
                             .toString()
             );
+
+            response.addHeader("Access-Control-Expose-Headers", "Authorization");
+            response.addHeader("Access-Control-Allow-Headers",
+                    "Authorization, X-PINGOTHER, ORIGIN, " + "X-Requested-With, Content-type, Accept, X-Custom-header");
+
             response.addHeader(HEADER_STRING, TOKEN_PREFIX + jwt);
         }
     }
