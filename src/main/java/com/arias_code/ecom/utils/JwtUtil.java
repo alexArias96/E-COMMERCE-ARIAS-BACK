@@ -21,6 +21,7 @@ import java.util.function.Function;
 @Slf4j
 public class JwtUtil {
 
+
     //Generar llave secreta
     public static String generateSecretKey(int length) {
         log.info("Init method generateSecretKey");
@@ -47,11 +48,15 @@ public class JwtUtil {
 
 
     private String createToken(Map<String, Object> claims, String username, Key key) {
+        long expirationTime = 3600000; // 1 hour in milliseconds
+        Date now = new Date();
+        Date expirationDate = new Date(now.getTime() + expirationTime);
+
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(username)
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis()*10000*60*30))
+                .setIssuedAt(now)
+                .setExpiration(expirationDate)
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
