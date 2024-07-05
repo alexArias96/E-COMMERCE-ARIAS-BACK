@@ -9,11 +9,13 @@ import com.arias_code.ecom.enums.UserRole;
 import com.arias_code.ecom.repository.OrderRepository;
 import com.arias_code.ecom.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService{
 
     @Autowired
