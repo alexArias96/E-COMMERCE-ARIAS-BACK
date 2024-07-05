@@ -26,33 +26,33 @@ public class WebSecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return
+//                httpSecurity
+//                        .csrf()
+//                        .disable()
+//                        .authorizeHttpRequests()
+//                        .requestMatchers("/authenticate", "/sign-up", "/order/**")
+//                        .permitAll()
+//                        .and()
+//                        .authorizeHttpRequests()
+//                        .requestMatchers("/api/**")
+//                        .authenticated()
+//                        .and()
+//                        .sessionManagement()
+//                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                        .and()
+//                        .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
+//                        .build();
                 httpSecurity
-                        .csrf()
-                        .disable()
-                        .authorizeHttpRequests()
-                        .requestMatchers("/authenticate", "/sign-up", "/order/**")
-                        .permitAll()
-                        .and()
-                        .authorizeHttpRequests()
-                        .requestMatchers("/api/**")
-                        .authenticated()
-                        .and()
-                        .sessionManagement()
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                        .and()
+                        .csrf().disable()
+                        .authorizeHttpRequests(authorize -> authorize
+                                .requestMatchers("/authenticate", "/sign-up", "/order/**").permitAll()
+                                .requestMatchers("/api/**").authenticated()
+                        )
+                        .sessionManagement(session -> session
+                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                        )
                         .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
                         .build();
-//                httpSecurity
-//                .csrf(AbstractHttpConfigurer::disable)
-//                .authorizeHttpRequests(authRequest ->
-//                        authRequest
-//                                .requestMatchers("/authenticate", "/sign-up", "/order/**").permitAll()
-//                                .anyRequest().authenticated())
-//                .sessionManagement(sessionManager ->
-//                        sessionManager
-//                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-//                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
-//                .build();
     }
 
     @Bean
