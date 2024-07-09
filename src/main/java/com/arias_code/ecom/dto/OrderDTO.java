@@ -22,4 +22,5 @@ public class OrderDTO {
     private UUID trackingId;
     private String userName;
     private List<CartItemsDTO> cartItems;
+    private String couponName;
 }
