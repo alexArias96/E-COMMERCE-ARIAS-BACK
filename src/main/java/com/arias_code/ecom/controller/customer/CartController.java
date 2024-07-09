@@ -38,4 +38,18 @@ public class CartController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
         }
     }
+
+    @PostMapping("/addition")
+    public ResponseEntity<OrderDTO> increaseProductQuantity(@RequestBody AddProductInCartDTO addProductInCartDTO){
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(cartService.increaseProductQuantity(addProductInCartDTO));
+    }
+
+    @PostMapping("/deduction")
+    public ResponseEntity<OrderDTO> decreaseProductQuantity(@RequestBody AddProductInCartDTO addProductInCartDTO){
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(cartService.decreaseProductQuantity(addProductInCartDTO));
+    }
 }
